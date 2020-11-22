@@ -1,11 +1,12 @@
 import smtplib, ssl, threading
+import getpass
 
 #--- SET UP & VARIABLES ---#
 port = 587 
 smtp_server = "smtp.gmail.com"
 sender = "aaron.aguerrevere@gmail.com"
 receiver = "q.aguerrevere@gmail.com"
-password = input("Type your password and press enter:")
+password = getpass.getpass("Type your password and press enter:")
 message = """\
 Subject: Hi world
 
