@@ -1,14 +1,24 @@
-import smtplib, ssl
-# help(smtplib)
+import smtplib, ssl, threading
 
-port = 456
+#--- SET UP & VARIABLES ---#
+port = 587 
+smtp_server = "smtp.gmail.com"
 sender = "aaron.aguerrevere@gmail.com"
 receiver = "q.aguerrevere@gmail.com"
-message = "Hello world!"
-password = input("Type your password and press enter: ")
+password = input("Type your password and press enter:")
+message = """\
+Subject: Hi world
 
-context = ssl.create_default_context()
+Test."""
 
-with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
-    server.login(sender, password)
-    server.sendmail(sender, receiver, message)
+#--- EXEC FUNCTIONS ---#
+
+def send_emails():
+    threading.Timer(5.0, send_emails).start()
+    context = ssl.create_default_context()
+    with smtplib.SMTP(smtp_server, port) as server:
+        server.starttls(context=context)
+        server.login(sender, password)
+        server.sendmail(sender, receiver, message)
+
+send_emails()
